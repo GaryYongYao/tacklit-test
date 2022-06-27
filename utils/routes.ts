@@ -1,15 +1,26 @@
-var fs = require('fs');
+var fs = require("fs");
 
 // Define route
 module.exports = (app: any) => {
-  app.get('/api/getPI', async (req: any, res: any) => {
+  app.post('/api/checkIn', async (req: any, res: any) => {
     try {
-      // const data = fs.readFileSync('pi.txt', 'utf8')
-      const data = req.app.get('PI')
-      const pi = data;
-      return res.status(200).send(pi)
+      const newData = app.get('data')
+      // @ts-ignore
+      newData.push(req.body)
+      app.set('data', newData)
+      
+      return res.status(200).send(app.get('data'))
     } catch (err) {
       return res.status(500).send(err)
+    }
+  })
+
+
+  app.get('/api/getData', async (req: any, res: any) => {
+    try {
+      return res.status(200).send(app.get('data'));
+    } catch (err) {
+      return res.status(500).send(err);
     }
   })
 }

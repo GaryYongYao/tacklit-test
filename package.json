@@ -4,11 +4,9 @@
   "main": "index.ts",
   "license": "MIT",
   "scripts": {
-    "build": "npx tsc",
+    "build": "npx tsc --resolveJsonModule",
     "start": "node dist/index.js",
-    "server": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
-    "client": "npm run start --prefix client",
-    "dev": "concurrently \"yarn server\" \"yarn client\"" 
+    "server": "concurrently \"npx tsc --resolveJsonModule --watch\" \"nodemon -q dist/index.js\""
   },
   "dependencies": {
     "axios": "^0.27.2",
